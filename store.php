@@ -32,12 +32,10 @@ require __DIR__ . '/includes/nav.php';
         <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
             <button class="btn btn-ghost" id="openTopup" style="font-size:12px;flex:1;min-width:100px"><i class="fas fa-coins"></i> ./topup.sh</button>
             <button class="btn btn-ghost" id="openProfile" style="font-size:12px;flex:1;min-width:100px"><i class="fas fa-user-edit"></i> ./profile.sh</button>
-            <!-- Removed ./keys.sh -->
         </div>
         <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
             <a href="https://samratsubedi163-star.github.io/Support-/" target="_blank" class="btn btn-ghost" style="font-size:12px;flex:1;text-decoration:none"><i class="fas fa-life-ring"></i> ./help.sh</a>
             <button class="btn btn-ghost" id="openPassword" style="font-size:12px;flex:1"><i class="fas fa-key"></i> ./passwd.sh</button>
-            <!-- Removed ./apk.sh -->
             <a href="https://srtxcheat.github.io/About" target="_blank" class="btn btn-ghost" style="font-size:12px;flex:1;text-decoration:none"><i class="fas fa-code"></i> ./about.sh</a>
         </div>
 
@@ -57,9 +55,8 @@ require __DIR__ . '/includes/nav.php';
         <div id="checkoutSummary" style="font-size:13px;margin-bottom:12px"></div>
         <div class="field"><label><i class="fas fa-user"></i> your name</label><input type="text" id="payName" placeholder="For delivery contact"></div>
         <div class="field"><label><i class="fab fa-whatsapp"></i> whatsapp number</label><input type="text" id="payWA" placeholder="98xxxxxxxx"></div>
-        <button class="btn btn-solid" id="confirmBuyBtn" style="margin-bottom:8px;position:relative">
-            <span class="btn-text"><i class="fas fa-check"></i> confirm.sh</span>
-            <span class="btn-spinner hidden"><span class="spinner"></span></span>
+        <button class="btn btn-solid" id="confirmBuyBtn" style="margin-bottom:8px">
+            <i class="fas fa-check"></i> confirm.sh
         </button>
         <button class="btn btn-ghost" onclick="closeModal('checkoutModal')"><i class="fas fa-times"></i> cancel</button>
     </div>
@@ -100,9 +97,8 @@ require __DIR__ . '/includes/nav.php';
         <div class="field"><label><i class="fas fa-rupee-sign"></i> amount (Rs)</label><input type="number" id="topupAmount" value="100" min="50"></div>
         <div class="field"><label><i class="fas fa-id-card"></i> your eSewa ID</label><input type="text" id="topupEsewa" placeholder="phone or email"></div>
         <div class="field"><label><i class="fas fa-hashtag"></i> transaction code</label><input type="text" id="topupTx" placeholder="e.g. JRJDHD"></div>
-        <button class="btn btn-solid" id="submitTopup" style="margin-bottom:8px;position:relative">
-            <span class="btn-text"><i class="fas fa-paper-plane"></i> submit.sh</span>
-            <span class="btn-spinner hidden"><span class="spinner"></span></span>
+        <button class="btn btn-solid" id="submitTopup" style="margin-bottom:8px">
+            <i class="fas fa-paper-plane"></i> submit.sh
         </button>
         <button class="btn btn-ghost" onclick="closeModal('topupModal')"><i class="fas fa-times"></i> cancel</button>
     </div>
@@ -114,9 +110,8 @@ require __DIR__ . '/includes/nav.php';
         <div class="prompt-header"><i class="fas fa-user-edit"></i> profile --edit</div>
         <div class="field"><label><i class="fas fa-user"></i> display name</label><input type="text" id="profName"></div>
         <div class="field"><label><i class="fab fa-whatsapp"></i> whatsapp number</label><input type="text" id="profPhone"></div>
-        <button class="btn btn-solid" id="saveProfile" style="margin-bottom:14px;position:relative">
-            <span class="btn-text"><i class="fas fa-save"></i> save.sh</span>
-            <span class="btn-spinner hidden"><span class="spinner"></span></span>
+        <button class="btn btn-solid" id="saveProfile" style="margin-bottom:14px">
+            <i class="fas fa-save"></i> save.sh
         </button>
 
         <div class="field">
@@ -140,9 +135,8 @@ require __DIR__ . '/includes/nav.php';
         <div class="prompt-header"><i class="fas fa-key"></i> passwd --change</div>
         <div class="field"><label><i class="fas fa-lock"></i> current password</label><input type="password" id="curPass" autocomplete="current-password"></div>
         <div class="field"><label><i class="fas fa-unlock-alt"></i> new password (min 6 chars)</label><input type="password" id="newPass" autocomplete="new-password"></div>
-        <button class="btn btn-solid" id="savePassword" style="margin-bottom:8px;position:relative">
-            <span class="btn-text"><i class="fas fa-sync-alt"></i> update.sh</span>
-            <span class="btn-spinner hidden"><span class="spinner"></span></span>
+        <button class="btn btn-solid" id="savePassword" style="margin-bottom:8px">
+            <i class="fas fa-sync-alt"></i> update.sh
         </button>
         <button class="btn btn-ghost" onclick="closeModal('passwordModal')"><i class="fas fa-times"></i> cancel</button>
     </div>
@@ -204,32 +198,6 @@ require __DIR__ . '/includes/nav.php';
     filter: drop-shadow(0 0 8px var(--secondary-glow));
 }
 
-/* ---- button loading states ---- */
-.btn {
-    position: relative;
-}
-.btn .btn-spinner {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8px;
-}
-.btn .btn-spinner .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,0.2);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-}
-.btn.loading .btn-text { visibility: hidden; }
-.btn.loading .btn-spinner { display: inline-flex; }
-.btn.loading .btn-spinner .spinner { display: inline-block; }
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
 .hidden { display: none !important; }
 </style>
 
@@ -248,15 +216,19 @@ window.closeModal = (id) => document.getElementById(id).classList.add('hidden');
 window.openModal = (id) => document.getElementById(id).classList.remove('hidden');
 window.__toastCopy = () => toast('Copied', 'success');
 
-// ---- button loading helpers ----
+// ---- Simplified button loading ----
 function setLoading(btn, loading) {
     if (!btn) return;
     if (loading) {
-        btn.classList.add('loading');
         btn.disabled = true;
+        btn._originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> loading...';
     } else {
-        btn.classList.remove('loading');
         btn.disabled = false;
+        if (btn._originalHTML) {
+            btn.innerHTML = btn._originalHTML;
+            delete btn._originalHTML;
+        }
     }
 }
 
