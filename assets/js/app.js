@@ -28,7 +28,8 @@ export async function getAuthToken() {
 
 export async function backendFetch(path, options = {}) {
     const token = await getAuthToken();
-    const r = await fetch(`${window.BACKEND_URL}${path}`, {
+    const fullUrl = `${window.BACKEND_URL}${path}`;
+    const r = await fetch(fullUrl, {
         ...options,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +37,36 @@ export async function backendFetch(path, options = {}) {
             ...(options.headers || {}),
         },
     });
-    const d = await r.json();
+
+    // If the response is not OK, try to extract a meaningful error message
+    if (!r.ok) {
+        const text = await r.text();
+        let errorMsg = `Server error (${r.status})`;
+
+        // Try to parse as JSON first
+        try {
+            const json = JSON.parse(text);
+            if (json.error) errorMsg = json.error;
+            else if (json.message) errorMsg = json.message;
+        } catch (e) {
+            // Not JSON – likely HTML or plain text
+            if (text.includes('<!DOCTYPE')) {
+                errorMsg = `Server endpoint not found or misconfigured (${r.status}). Please check the backend URL: ${window.BACKEND_URL}`;
+            } else if (text.trim()) {
+                errorMsg = text.trim();
+            }
+        }
+        throw new Error(errorMsg);
+    }
+
+    // Parse JSON response – if it fails, it's not a valid JSON response
+    let d;
+    try {
+        d = await r.json();
+    } catch (e) {
+        throw new Error('Backend returned invalid JSON. Please check the server.');
+    }
+
     if (!d.success) throw new Error(d.error || 'Request failed');
     return d;
 }
