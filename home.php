@@ -73,7 +73,7 @@ import {
 // ---- Boot sequence (plain, non-module timing is fine here since
 // this page owns it) ----
 const lines = [
-    'booting srtxcheats::store v5.0.9 ...',
+    'booting srtxcheats::store v5.0 ...',
     '[ok] loading catalog',
     '[ok] connecting to backend',
     '[ok] securing session channel',
